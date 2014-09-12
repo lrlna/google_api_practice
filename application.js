@@ -1,23 +1,35 @@
+
+
+var raincouver = new google.maps.LatLng(49.2818404,-123.1091149,19);
+var cool = new google.maps.LatLng(49.276042,-123.141830);
+var marker;
+var map;
+
 function initialize() {
-  var theirLatlng = new google.maps.LatLng(-25.363882,131.044922);
-  var myLatlng = new google.maps.LatLng(49.2818404,-123.1091149,19)
   var mapOptions = {
-    zoom: 4,
-    center: myLatlng
+    zoom: 13,
+    center: raincouver
+  };
+
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+          mapOptions);
+
+  marker = new google.maps.Marker({
+    map:map,
+    draggable:true,
+    animation: google.maps.Animation.DROP,
+    position: cool
+  });
+  google.maps.event.addListener(marker, 'click', toggleBounce);
+}
+
+function toggleBounce() {
+
+  if (marker.getAnimation() != null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
   }
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-  var theirMarker = new google.maps.Marker({
-      position: theirLatlng,
-      map: map,
-      title: 'Practicin!'
-  });
-
-  var myMarker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      title: 'Raincouver'
-  });
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
